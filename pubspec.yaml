@@ -1,0 +1,50 @@
+name: health_mental
+description: A new Flutter project.
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.2
+  flutter_svg: ^1.1.6
+  form_field_validator: ^1.1.0
+  google_nav_bar: ^5.0.6
+  font_awesome_flutter: ^10.3.0
+  table_calendar: ^3.0.9
+  lottie: ^2.2.0
+  rating_dialog: ^2.0.4
+  shared_preferences: ^2.0.17
+  provider: ^6.0.5
+  flutter_calendar_carousel: ^2.4.2
+  youtube_player_flutter: ^8.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  assets:
+    - assets/
+
+
+  uses-material-design: true
+
+
+
