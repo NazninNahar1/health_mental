@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'login.dart';
+import 'main.dart';
 
 
 class OnboardingPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()));
+              MaterialPageRoute(builder: (context) => const MainPage()));
         },
         backgroundColor: Colors.white,
         child: const Icon(

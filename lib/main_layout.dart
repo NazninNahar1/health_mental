@@ -1,7 +1,7 @@
-import 'package:doctor_appoint/screens/appointment.dart';
-import 'package:doctor_appoint/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:health_mental/screens/appointment.dart';
+import 'package:health_mental/screens/home_page.dart';
 
 
 class MainLayOut extends StatefulWidget {

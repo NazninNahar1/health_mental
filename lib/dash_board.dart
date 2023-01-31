@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:health_mental/phsycologist_list.dart';
 import 'package:health_mental/reminder/reminder_page_one.dart';
@@ -64,12 +65,18 @@ class _DashBoardPageState extends State<DashBoardPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Hey Aumi",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Hey Aumi",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(onPressed: (){FirebaseAuth.instance.signOut();}, icon: Icon(Icons.logout))
+                  ],
                 ),
                 const SizedBox(
                   height: 15,

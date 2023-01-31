@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:health_mental/main.dart';
 
-import 'dash_board.dart';
 import 'login.dart';
 
 
@@ -14,6 +15,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   late String _email, _password, name;
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _showPassword = false;
@@ -137,6 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                               fontSize: 15, fontWeight: FontWeight.w700),
                         ),
                         TextFormField(
+                          controller:_emailController ,
                           validator: (input) {
                             if (input == null ||
                                 input.characters.contains('@') == false) {
@@ -220,13 +223,8 @@ class _SignupPageState extends State<SignupPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30)),
                             ),
-                            onPressed: () {
-                              _submit;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DashBoardPage()));
-                            },
+                            onPressed: _submit,
+
                             child: const Text('SignUp'),
                           ),
                         ),
@@ -262,13 +260,23 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // Login logic here
-      print(_email);
-      print(_password);
+  Future _submit() async{
+    showDialog(context: context,
+        barrierDismissible: false,
+        builder: (context)=>Center(child: CircularProgressIndicator(),));
+    try {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        // Navigator.push(context, MaterialPageRoute(builder:(context)=>const Dashboard()));
+      }
+
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
     }
+    navigatorKey.currentState!.popUntil((route)=>route.isFirst);
   }
 }
 

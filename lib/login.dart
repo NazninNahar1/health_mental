@@ -1,6 +1,9 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:health_mental/sign_up.dart';
+
+import 'main.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -13,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   late String _email, _password;
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
   bool _showPassword = false;
@@ -77,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: TextFormField(
+                          controller:_emailController ,
                           validator: (input) {
                             if (input == null ||
                                 input.characters.contains('@') == false) {
@@ -218,12 +223,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // Login logic here
-      print(_email);
-      print(_password);
+  Future _submit() async{
+    try {
+      showDialog(context: context,
+          barrierDismissible: false,
+          builder: (context)=>Center(child: CircularProgressIndicator(),));
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        // Navigator.of(context)
+        //     .push(MaterialPageRoute(builder: (context) => SignUpScreen()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e);
     }
+    navigatorKey.currentState!.popUntil((route)=>route.isFirst);
+
   }
 }
